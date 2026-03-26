@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { COLORS, FONTS } from '../../theme/index';
+import Icon from 'react-native-vector-icons/Feather';
 
 interface AppHeaderProps {
     title: string;
@@ -17,7 +18,7 @@ export default function AppHeader({
     title,
     subtitle,
     onBack,
-    backLabel = '← Back',
+    backLabel,
     rightIcon,
     onRightPress,
     children,
@@ -27,12 +28,21 @@ export default function AppHeader({
         <View style={[styles.container, style]}>
             {/* Back + Right row */}
             {(onBack || rightIcon) && (
-                <View style={styles.topRow}>
+                <View style={[styles.topRow, onBack && { marginBottom: 0 }]}>
                     {onBack ? (
-                        <TouchableOpacity onPress={onBack} style={styles.backBtn}>
-                            <Text style={styles.backText}>{backLabel}</Text>
+                        <TouchableOpacity onPress={onBack} style={[styles.backBtn, { marginRight: 16 }]}>
+                            <Text style={styles.backText}>
+                                <Icon name="arrow-left" size={24} color={COLORS.white} />
+                            </Text>
                         </TouchableOpacity>
                     ) : <View />}
+
+                    {onBack && (
+                        <View style={{ flex: 1 }}>
+                            {title && <Text style={styles.title}>{title}</Text>}
+                            {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+                        </View>
+                    )}
 
                     {rightIcon && (
                         <TouchableOpacity onPress={onRightPress} style={styles.rightBtn}>
@@ -43,12 +53,14 @@ export default function AppHeader({
             )}
 
             {/* Title row */}
-            <View style={styles.titleRow}>
-                <View style={{ flex: 1 }}>
-                    {title && <Text style={styles.title}>{title}</Text>}
-                    {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+            {!onBack && (
+                <View style={styles.titleRow}>
+                    <View style={{ flex: 1 }}>
+                        {title && <Text style={styles.title}>{title}</Text>}
+                        {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+                    </View>
                 </View>
-            </View>
+            )}
 
             {/* Optional children (search bar, location bar, etc.) */}
             {children && <View style={styles.children}>{children}</View>}
@@ -94,7 +106,7 @@ const styles = StyleSheet.create({
         color: COLORS.white,
     },
     subtitle: {
-        fontSize: 12,
+        fontSize: 14,
         color: 'rgba(255,255,255,0.75)',
         marginTop: 3,
     },

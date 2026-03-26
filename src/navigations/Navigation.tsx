@@ -6,6 +6,7 @@ import SplashScreen from '../screens/Splash/SplashScreen';
 import SignIn from '../screens/SignIn/SignInScreen';
 import SignUp from '../screens/SignUp/SignUpScreen';
 import BottomTabNav from './BottomTabNav';
+import ServiceDetail from '../screens/ServiceDetail/ServiceDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,11 @@ const Navigation = () => {
           component={BottomTabNav}
           options={{headerShown: false}}
         /> 
+        <Stack.Screen
+          name="ServiceDetail"
+          component={ServiceDetail}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
