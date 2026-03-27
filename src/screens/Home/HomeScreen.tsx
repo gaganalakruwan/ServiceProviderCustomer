@@ -3,34 +3,9 @@ import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image, } from 're
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS, FONTS, SHADOW, RADIUS } from '../../theme/index';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AppTextInput from '../../component/AppTextInput/AppTextInput';
-import { CategoryChipRow } from '../../component/CategoryCard/CategoryCard';
-import ServiceCard from '../../component/ServiceCard/ServiceCard';
-
-const CATEGORIES = [
-    { id: 'all', label: 'All'},
-    { id: 'repair', label: 'Repair'},
-    { id: 'cleaning', label: 'Cleaning'},
-    { id: 'electric', label: 'Electric'},
-    { id: 'plumbing', label: 'Plumbing'},
-    { id: 'painting', label: 'Painting' },
-];
-
-const SERVICES = [
-    { id: 1, title: 'AC Repair', category: 'repair', price: 'Rs 1500', image: 'https://images.unsplash.com/photo-1570129477492-45c003edd314?w=400' },
-    { id: 2, title: 'Deep Cleaning', category: 'cleaning', price: 'Rs 2500', image: 'https://images.unsplash.com/photo-1581574020254-1e954f2d79af?w=400' },
-    { id: 3, title: 'Fan Repair', category: 'electric', price: 'Rs 500', image: 'https://images.unsplash.com/photo-1570129477492-45c003edd314?w=400' },
-    { id: 4, title: 'Pipe Leak Fix', category: 'plumbing', price: 'Rs 1200', image: 'https://images.unsplash.com/photo-1570129477492-45c003edd314?w=400' },
-    { id: 5, title: 'Wall Painting', category: 'painting', price: 'Rs 5000', image: 'https://images.unsplash.com/photo-1570129477492-45c003edd314?w=400' },
-];
+import HomeCard from '../../component/HomeCard/HomeCard';
 
 export default function Home({ navigation }: any) {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [activeCategory, setActiveCategory] = useState('all');
-
-    const filteredServices = activeCategory === 'all'
-        ? SERVICES
-        : SERVICES.filter(s => s.category === activeCategory);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -44,83 +19,23 @@ export default function Home({ navigation }: any) {
                         <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)' }}>Change ›</Text>
                     </TouchableOpacity>
                 </View>
-
-                <AppTextInput
-                    placeholder="Search services..."
-                    icon={
-                        <Icon name="search" size={20} color={COLORS.gray400} />
-                    }
-                    value={searchQuery}
-                    onChangeText={setSearchQuery}
-                    style={styles.searchBar}
-                />
             </View>
 
             <ScrollView contentContainerStyle={styles.form}>
-                
-                {/* Categories */}
-                <Text style={styles.categoryTitle}>Categories</Text>
-                <CategoryChipRow
-                    items={CATEGORIES}
-                    activeId={activeCategory}
-                    onSelect={setActiveCategory}
+                <HomeCard
+                    icon=""
+                    label="Create a New Service Request"
+                    subLabel="Tell us what you need help with"
+                    screen="NewRequestScreen"
+                    navigation={navigation}
                 />
 
-                {/* Services */}
-                <Text style={styles.categoryTitle}>Services</Text>
-                <ServiceCard
-                    name="AC Repair"
-                    price="Rs. 2,500"
-                    image="https://images.unsplash.com/photo-1570129477492-45c003edd314?w=400"
-                    bgColor="#E1F5EE"
-                    rating={4.2}
-                    reviews={128}
-                    onPress={() => navigation.navigate('ServiceDetail', { service: SERVICES[0] })}
-                    onBookPress={() => navigation.navigate('Booking')}
-                />
-
-                <ServiceCard
-                    name="Deep Cleaning"
-                    price="Rs. 5,500"
-                    image="https://images.unsplash.com/photo-1570129477492-45c003edd314?w=400"
-                    bgColor="#E1F5EE"
-                    rating={3.3}
-                    reviews={228}
-                    onPress={() => navigation.navigate('ServiceDetail', { service: SERVICES[1] })}
-                    onBookPress={() => navigation.navigate('Booking')}
-                />
-
-                <ServiceCard
-                    name="Fan Repair"
-                    price="Rs. 500"
-                    emoji="❄️"
-                    bgColor="#E1F5EE"
-                    rating={3.3}
-                    reviews={228}
-                    onPress={() => navigation.navigate('ServiceDetail', { service: SERVICES[2] })}
-                    onBookPress={() => navigation.navigate('Booking')}
-                />
-
-                <ServiceCard
-                    name="Pipe Leak Fix"
-                    price="Rs. 1,200"
-                    emoji="❄️"
-                    bgColor="#E1F5EE"
-                    rating={3.3}
-                    reviews={228}
-                    onPress={() => navigation.navigate('ServiceDetail', { service: SERVICES[3] })}
-                    onBookPress={() => navigation.navigate('Booking')}
-                />
-
-                <ServiceCard
-                    name="Wall Painting"
-                    price="Rs. 5,000"
-                    emoji="❄️"
-                    bgColor="#E1F5EE"
-                    rating={3.3}
-                    reviews={228}
-                    onPress={() => navigation.navigate('ServiceDetail', { service: SERVICES[4] })}
-                    onBookPress={() => navigation.navigate('Booking')}
+                <HomeCard
+                    icon=""
+                    label="Create Inspection"
+                    subLabel="Schedule a vehicle inspection"
+                    screen="InspectionScreen"
+                    navigation={navigation}
                 />
             </ScrollView>
         </SafeAreaView>

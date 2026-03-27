@@ -6,7 +6,8 @@ import SplashScreen from '../screens/Splash/SplashScreen';
 import SignIn from '../screens/SignIn/SignInScreen';
 import SignUp from '../screens/SignUp/SignUpScreen';
 import BottomTabNav from './BottomTabNav';
-import ServiceDetail from '../screens/ServiceDetail/ServiceDetailScreen';
+import NewRequestScreen from '../screens/NewRequest/NewRequestScreen';
+import InspectionScreen from '../screens/Inspection/InspectionScreen';
 
 const Stack = createStackNavigator();
 
@@ -35,8 +36,13 @@ const Navigation = () => {
           options={{headerShown: false}}
         /> 
         <Stack.Screen
-          name="ServiceDetail"
-          component={ServiceDetail}
+          name="NewRequestScreen"
+          component={NewRequestScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="InspectionScreen"
+          component={InspectionScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
