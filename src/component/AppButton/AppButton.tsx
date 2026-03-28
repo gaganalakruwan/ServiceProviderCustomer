@@ -6,7 +6,7 @@ import { moderateScale } from '../../constant/Metrics';
 interface AppButtonProps {
   title: string;
   onPress: () => void;
-  style?: any;
+  style?: any; 
   textStyle?: any;
   iconName?: string;
   iconSize?: number;
