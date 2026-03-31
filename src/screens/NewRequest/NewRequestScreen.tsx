@@ -3,20 +3,24 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS, FONTS } from "../../theme";
 import AppHeader from "../../component/AppHeader/AppHeader";
 import AppTextInput from "../../component/AppTextInput/AppTextInput";
+import AppSelector from "../../component/AppSelector/AppSelector";
 import { useState } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppButton from "../../component/AppButton/AppButton";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
+// 1. Define Service Types
+const SERVICE_TYPES = ["Work Order", "Maintenance Request", "Repair Request", "Inspection Request", "Other"];
+const TIME_SLOTS = ["Morning", "Afternoon"];
+
 export default function NewRequestScreen({ navigation }: any) {
-    const [serviceType, setServiceType] = useState("");
+    const [serviceType, setServiceType] = useState(SERVICE_TYPES[0]);
     const [serviceDescription, setServiceDescription] = useState("");
     const [location, setLocation] = useState("");
     const [preferredDate, setPreferredDate] = useState("");
-    const [preferredTime, setPreferredTime] = useState("");
+    const [preferredTime, setPreferredTime] = useState("Morning"); // Default to Morning
     const [date, setDate] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
-    const [showTimePicker, setShowTimePicker] = useState(false);
 
     const onDateChange = (event: any, selectedDate?: Date) => {
         const currentDate = selectedDate || date;
@@ -27,20 +31,10 @@ export default function NewRequestScreen({ navigation }: any) {
         }
     };
 
-    const onTimeChange = (event: any, selectedDate?: Date) => {
-        const currentDate = selectedDate || date;
-        setShowTimePicker(false);
-        if (event.type === 'set' && selectedDate) {
-            setDate(currentDate);
-            setPreferredTime(currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-        }
-    };
-
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="light-content" backgroundColor={COLORS.primary} />
 
-            {/* Header */}
             <AppHeader
                 title="New Request"
                 onBack={() => navigation.goBack()}
@@ -48,11 +42,12 @@ export default function NewRequestScreen({ navigation }: any) {
 
             <ScrollView contentContainerStyle={styles.form}>
                 <View style={styles.formGroup}>
+                    {/* 2. Service Type Selection UI */}
                     <Text style={styles.label}>Service Type</Text>
-                    <AppTextInput
-                        placeholder="Select Service Type"
-                        value={serviceType}
-                        onChangeText={setServiceType}
+                    <AppSelector 
+                        options={SERVICE_TYPES} 
+                        selectedOption={serviceType} 
+                        onSelect={setServiceType} 
                     />
 
                     <Text style={styles.label}>Service Description</Text>
@@ -84,17 +79,13 @@ export default function NewRequestScreen({ navigation }: any) {
                         </View>
                     </TouchableOpacity>
 
+                    {/* 3. Preferred Time Selection Buttons */}
                     <Text style={styles.label}>Preferred Time</Text>
-                    <TouchableOpacity onPress={() => setShowTimePicker(true)} activeOpacity={0.7}>
-                        <View pointerEvents="none">
-                            <AppTextInput
-                                placeholder="Select Preferred Time"
-                                value={preferredTime}
-                                editable={false}
-                                icon={<Icon name="clock-o" size={16} color={COLORS.gray800} />}
-                            />
-                        </View>
-                    </TouchableOpacity>
+                    <AppSelector 
+                        options={TIME_SLOTS} 
+                        selectedOption={preferredTime} 
+                        onSelect={setPreferredTime} 
+                    />
 
                     {showDatePicker && (
                         <DateTimePicker
@@ -105,18 +96,9 @@ export default function NewRequestScreen({ navigation }: any) {
                         />
                     )}
 
-                    {showTimePicker && (
-                        <DateTimePicker
-                            value={date}
-                            mode="time"
-                            display="default"
-                            onChange={onTimeChange}
-                        />
-                    )}
-
                     <AppButton
                         title="Submit"
-                        onPress={() => { }}
+                        onPress={() => { console.log({ serviceType, preferredTime }) }}
                         style={styles.submitButton}
                     />
                 </View>
@@ -132,10 +114,9 @@ const styles = StyleSheet.create({
     },
     form: {
         padding: 24,
-        gap: 16,
     },
     formGroup: {
-        gap: 8,
+        gap: 12,
     },
     label: {
         fontSize: 16,
@@ -147,14 +128,10 @@ const styles = StyleSheet.create({
         textAlignVertical: "top",
     },
     submitButton: {
-        marginTop: 16,
+        marginTop: 10,
         backgroundColor: COLORS.primary,
         borderRadius: 8,
         padding: 16,
         alignItems: "center",
     },
-    contactInfo: {
-        gap: 8,
-    },
-
 });

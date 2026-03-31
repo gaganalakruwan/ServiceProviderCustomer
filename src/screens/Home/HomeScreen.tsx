@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS, FONTS, SHADOW, RADIUS } from '../../theme/index';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeCard from '../../component/HomeCard/HomeCard';
+import CountCard from '../../component/CountCard/CountCard';
 
 export default function Home({ navigation }: any) {
 
@@ -30,13 +31,19 @@ export default function Home({ navigation }: any) {
                     navigation={navigation}
                 />
 
-                <HomeCard
-                    icon=""
-                    label="Create Inspection"
-                    subLabel="Schedule a vehicle inspection"
-                    screen="InspectionScreen"
-                    navigation={navigation}
-                />
+                <View style={styles.countCardContainer}>
+                    <CountCard
+                        label="Pending Requests"
+                        subLabel="03"
+                    />
+
+                    <CountCard
+                        label="Active Requests"
+                        subLabel="03"
+                    />
+
+
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
@@ -54,6 +61,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         flexDirection: 'column',
         justifyContent: 'space-between',
+    },
+    countCardContainer: {
+        flexDirection: 'row',
+        gap: 12,
     },
     backBtn: {
         width: 40,

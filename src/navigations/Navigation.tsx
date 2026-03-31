@@ -7,7 +7,6 @@ import SignIn from '../screens/SignIn/SignInScreen';
 import SignUp from '../screens/SignUp/SignUpScreen';
 import BottomTabNav from './BottomTabNav';
 import NewRequestScreen from '../screens/NewRequest/NewRequestScreen';
-import InspectionScreen from '../screens/Inspection/InspectionScreen';
 import OrderDetailsScreen from '../screens/OrderDetails/OrderDetailsScreen';
 import RateReviewScreen from '../screens/RateReview/RateReviewScreen';
 
@@ -40,11 +39,6 @@ const Navigation = () => {
         <Stack.Screen
           name="NewRequestScreen"
           component={NewRequestScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="InspectionScreen"
-          component={InspectionScreen}
           options={{headerShown: false}}
         />
         <Stack.Screen

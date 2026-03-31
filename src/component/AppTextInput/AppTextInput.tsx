@@ -58,7 +58,7 @@ export default function AppInput({
 
                 {secureText && (
                     <TouchableOpacity onPress={() => setShowPass(p => !p)} style={styles.eyeBtn}>
-                        <Icon name={showPass ? 'eye-slash' : 'eye'} size={18} color="#999" />
+                        <Icon name={showPass ? 'eye' : 'eye-slash'} size={18} color="#999" />
                     </TouchableOpacity>
                 )}
             </View>

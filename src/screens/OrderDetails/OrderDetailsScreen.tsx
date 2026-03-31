@@ -115,7 +115,7 @@ export default function OrderDetailScreen({ navigation, route }) {
           />
 
           <AppButton
-            title="Generate Invoice"
+            title="Download Invoice"
             iconName=""
             onPress={() => setShowInvoice(true)}
             style={[styles.primaryBtn, { marginTop: 10 }]}
